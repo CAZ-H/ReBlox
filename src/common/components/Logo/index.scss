@@ -1,0 +1,10 @@
+@import '~common/css/theme';
+
+.rb-logo {
+    display: inline-flex;
+
+    svg {
+        margin: auto;
+        fill: $accent;
+    }
+}

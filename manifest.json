@@ -1,0 +1,15 @@
+{
+  "name": "ReBlox",
+  "short_name": "ReBlox",
+  "version": "1.0",
+  "description": "Replace pages on the Roblox website with React alternatives",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": ["*://*.roblox.com/games/*"],
+      "js": ["build/index.js"],
+      "css": ["build/main.css"],
+      "run_at": "document_end"
+    }
+  ]
+}

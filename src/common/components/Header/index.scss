@@ -1,0 +1,53 @@
+@import '~common/css/theme';
+
+.rb-header {
+    position: fixed;
+    display: flex;
+    height: 40px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: $bgDarker;
+    color: $textMain;
+    padding: 0;
+    align-items: center;
+
+    &__logo {
+        height: 100%;
+        align-items: center;
+        margin: 0 $space5 0 $space3;
+    }
+
+    &__links {
+        display: inline-flex;
+        align-items: center;
+        width: 33%;
+        height: 100%;
+
+        &-btn {
+            height: 40px;
+            line-height: 40px;
+            flex-grow: 1;
+            margin: 0 $space2;
+            background: none;
+
+            &:hover, &:focus {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+
+    &__search {
+        display: inline-flex;
+        width: 33%;
+        height: 60%;
+        align-items: center;
+    }
+
+    &__details {
+        display: inline-flex;
+        width: 33%;
+        height: 100%;
+
+    }
+}

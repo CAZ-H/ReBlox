@@ -1,0 +1,33 @@
+{
+  "name": "reblox",
+  "version": "1.0.0",
+  "description": "Replace pages on the Roblox website with React alternatives",
+  "main": "index.js",
+  "author": "Casey Hildebrand <CaZsm@outlook.com> (https://github.com/CAZ-H)",
+  "license": "ISC",
+  "scripts": {
+    "build": "webpack"
+  },
+  "pre-commit": [
+    "build"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-transform-react-jsx": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "babel-loader": "^8.0.4",
+    "classnames": "^2.2.6",
+    "css-loader": "^1.0.1",
+    "mini-css-extract-plugin": "^0.4.5",
+    "node-sass": "^4.10.0",
+    "npm": "^6.4.1",
+    "pre-commit": "^1.2.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "sass-loader": "^7.1.0",
+    "webpack": "^4.26.1",
+    "webpack-cli": "^3.1.2"
+  }
+}
