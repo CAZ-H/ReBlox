@@ -1,0 +1,13 @@
+@import '~common/css/theme';
+
+.rb-floater {
+    position: relative;
+    pointer-events: none;
+
+    &__pane {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+    }
+}

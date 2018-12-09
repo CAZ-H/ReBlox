@@ -1,0 +1,40 @@
+@import '~common/css/theme';
+
+.rb-input {
+    box-shadow: none;
+    outline: none;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $bgLight;
+    text-align: left;
+    padding: $space1 $space3;
+    margin: $space1 0;
+    box-sizing: border-box;
+
+    &__round {
+        border-radius: $space1;
+    }
+
+    &__light {
+        background: $inputLight;
+        color: $textMain;
+
+        &:hover {
+            background: $inputLightFocused;
+        }
+    }
+
+    &__dark {
+        background: $inputDark;
+        color: $textMain;
+
+        &:hover {
+            background: $inputDarkFocused;
+        }
+    }
+
+    &::placeholder {
+        color: $textFainter;
+    }
+}

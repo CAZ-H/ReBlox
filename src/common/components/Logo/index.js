@@ -4,11 +4,11 @@ import classNames from 'classnames';
 
 import './index.scss';
 
-const Logo = ({size, className}) => {
+const Logo = ({size, className, ...props}) => {
     const classes = classNames('rb-logo', className);
 
     return (
-        <div className={classes}>
+        <div className={classes} {...props}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={`${size}px`}

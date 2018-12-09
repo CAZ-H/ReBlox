@@ -25,15 +25,21 @@ $buttonLight: #BCBCBC;
 $buttonLightFocused: #A4A4A4;
 
 $buttonDark: #333333;
-$buttonDarkFocused: #393939;
+$buttonDarkFocused: #2b2b2b;
+
+$inputLight: #474747;
+$inputLightFocused: #4F4F4F;
+
+$inputDark: #2D2D2D;
+$inputDarkFocused: #323232;
 
 $infoMain: #FFFF66;
 $infoDark: #DDAA22;
 
 $accent: #E2231A;
 
-$lightOverlay: #ffffff;
-$darkOverlay: #000000;
+$lightOverlay: rgba(255, 255, 255, 0.2);
+$darkOverlay: rgba(0, 0, 0, 0.2);
 
 /* SPACING */
 
