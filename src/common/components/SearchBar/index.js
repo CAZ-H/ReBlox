@@ -5,6 +5,8 @@ import 'whatwg-fetch';
 import Input from 'common/components/Input';
 import Floater from 'common/components/Floater';
 
+import { SEARCH } from 'common/constants/URLs';
+
 import './index.scss';
 
 class SearchBar extends React.Component {
@@ -13,7 +15,7 @@ class SearchBar extends React.Component {
     };
 
     static defaultProps = {
-        currentPage: 'user'
+        currentPage: 'users'
     };
 
     constructor(props) {
@@ -22,12 +24,32 @@ class SearchBar extends React.Component {
         this.state = {
             focused: false,
             query: '',
-            topSuggestion: {}
+            topSuggestion: {
+                name: null,
+                image: null,
+                link: null
+            }
         };
 
         this.handleChanged = this.handleChanged.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.handleUnfocus = this.handleUnfocus.bind(this);
+    }
+
+    static getSearchURL(currentPage, query) {
+        switch (currentPage) {
+            case 'games':
+                return `${SEARCH.GAMES}${query}`;
+            case 'catalog':
+                return `${SEARCH.CATALOG}${query}`;
+            case 'library':
+                return `${SEARCH.LIBRARY}${query}`;
+            case 'groups':
+                return `${SEARCH.GROUPS}${query}`;
+            case 'users':
+            default:
+                return `${SEARCH.USERS}${query}`;
+        }
     }
 
     static renderSuggestRow(query, category, onClick) {
@@ -51,11 +73,11 @@ class SearchBar extends React.Component {
         return (
             <React.Fragment>
                 {topSuggestion.name ? SearchBar.renderSuggestTopSuggest(topSuggestion) : null}
-                {SearchBar.renderSuggestRow(query, 'Players', () => {window.location.href = `https://www.roblox.com/search/users?keyword=${query}`})}
-                {SearchBar.renderSuggestRow(query, 'Games', () => {window.location.href = `https://www.roblox.com/games/?Keyword=${query}`})}
-                {SearchBar.renderSuggestRow(query, 'Groups', () => {window.location.href = `https://www.roblox.com/search/groups?keyword=${query}`})}
-                {SearchBar.renderSuggestRow(query, 'Catalog', () => {window.location.href = `https://www.roblox.com/catalog/browse.aspx?CatalogContext=1&Keyword=${query}`})}
-                {SearchBar.renderSuggestRow(query, 'Library', () => {window.location.href = `https://www.roblox.com/develop/library?CatalogContext=2&Category=6&Keyword=${query}`})}
+                {SearchBar.renderSuggestRow(query, 'Players', () => {window.location.href = `${SEARCH.USERS}${query}`})}
+                {SearchBar.renderSuggestRow(query, 'Games', () => {window.location.href = `${SEARCH.GAMES}${query}`})}
+                {SearchBar.renderSuggestRow(query, 'Groups', () => {window.location.href = `${SEARCH.GROUPS}${query}`})}
+                {SearchBar.renderSuggestRow(query, 'Catalog', () => {window.location.href = `${SEARCH.CATALOG}${query}`})}
+                {SearchBar.renderSuggestRow(query, 'Library', () => {window.location.href = `${SEARCH.LIBRARY}${query}`})}
             </React.Fragment>
         )
     }
@@ -70,8 +92,8 @@ class SearchBar extends React.Component {
             }
         }, () => {
             switch(this.props.currentPage) {
-                case 'group':
-                    fetch(`https://www.roblox.com/search/groups/list-json?keyword=${this.state.query}&maxRows=1&startIndex=0`).then((jsonRes) => {
+                case 'groups':
+                    fetch(`${SEARCH.GROUP_FIRST}${this.state.query}`).then((jsonRes) => {
                         return jsonRes.json()
                     }).then((parsedRes) => {
                         this.setState(() => {
@@ -88,13 +110,13 @@ class SearchBar extends React.Component {
                         console.warn('[ReBlox - Search]\n', e)
                     });
                     break;
-                case 'user':
+                case 'users':
                 default:
-                    fetch(`https://www.roblox.com/search/users/results?keyword=${this.state.query}&maxRows=1&startIndex=0`).then((jsonRes) => {
+                    fetch(`${SEARCH.USER_FIRST}${this.state.query}`).then((jsonRes) => {
                         return jsonRes.json()
                     }).then((parsedRes) => {
                         const data = (parsedRes.UserSearchResults || [])[0] || {};
-                        data.UserId && fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${data.UserId}&size=48x48&format=Png`).then((jsonRes) => {
+                        data.UserId && fetch(`${SEARCH.AVATAR_HEADSHOT}${data.UserId}`).then((jsonRes) => {
                             return jsonRes.json()
                         }).then((parsedImgRes) => {
                             const imgData = (parsedImgRes.data || [])[0] || {};
@@ -134,8 +156,15 @@ class SearchBar extends React.Component {
     }
 
     render() {
+        console.log(SearchBar.getSearchURL(this.props.currentPage, this.state.query));
         return (
-            <div className='rb-search-bar'>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    window.location.href = SearchBar.getSearchURL(this.props.currentPage, this.state.query)
+                }}
+                className='rb-search-bar'
+            >
                 <Floater
                     className='rb-search-bar__suggests'
                     floaterClassName={`rb-search-bar__suggests-list ${this.state.focused ? ' rb-search-bar__suggests-list-open' : ''}`}
@@ -144,7 +173,7 @@ class SearchBar extends React.Component {
                     {SearchBar.renderSuggestList(this.state.query, this.state.topSuggestion)}
                 </Floater>
                 <Input placeholder='Search' type='text' onChange={this.handleChanged} onFocus={this.handleFocus} color='light'/>
-            </div>
+            </form>
         );
     }
 }
