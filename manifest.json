@@ -6,7 +6,7 @@
   "manifest_version": 2,
   "content_scripts": [
     {
-      "matches": ["*://*.roblox.com/games/*"],
+      "matches": ["*://*.roblox.com/games/*/*"],
       "js": ["build/index.js"],
       "css": ["build/main.css"],
       "run_at": "document_end"
