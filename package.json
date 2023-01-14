@@ -31,7 +31,7 @@
     "react-styleguidist": "^8.0.6",
     "sass-loader": "^7.1.0",
     "webpack": "^4.26.1",
-    "webpack-cli": "^3.1.2",
+    "webpack-cli": "^3.3.12",
     "whatwg-fetch": "^3.0.0"
   }
 }
